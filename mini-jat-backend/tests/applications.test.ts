@@ -1,13 +1,4 @@
-import { z } from 'zod';
-
-const createSchema = z.object({
-  company_name: z.string().min(2, 'Company name must be at least 2 characters'),
-  job_title: z.string().min(1, 'Job title is required'),
-  job_type: z.enum(['Internship', 'Full-time', 'Part-time']),
-  status: z.enum(['Applied', 'Interviewing', 'Offer', 'Rejected']),
-  applied_date: z.string().refine((val) => !isNaN(Date.parse(val)), 'Invalid date format'),
-  notes: z.string().optional(),
-});
+import { createApplicationSchema } from '../src/lib/schemas';
 
 describe('Validation Schemas', () => {
   describe('createApplication schema', () => {
@@ -15,11 +6,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: 'Software Engineer',
-        job_type: 'Full-time',
-        status: 'Applied',
+        job_type: 'Full-time' as const,
+        status: 'Applied' as const,
         applied_date: '2026-06-01',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(true);
     });
 
@@ -27,12 +18,12 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: 'Software Engineer',
-        job_type: 'Full-time',
-        status: 'Applied',
+        job_type: 'Full-time' as const,
+        status: 'Applied' as const,
         applied_date: '2026-06-01',
         notes: 'Some notes',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(true);
     });
 
@@ -40,11 +31,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'G',
         job_title: 'Software Engineer',
-        job_type: 'Full-time',
-        status: 'Applied',
+        job_type: 'Full-time' as const,
+        status: 'Applied' as const,
         applied_date: '2026-06-01',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(false);
     });
 
@@ -52,11 +43,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: '',
-        job_type: 'Full-time',
-        status: 'Applied',
+        job_type: 'Full-time' as const,
+        status: 'Applied' as const,
         applied_date: '2026-06-01',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(false);
     });
 
@@ -64,11 +55,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: 'Engineer',
-        job_type: 'Contract',
-        status: 'Applied',
+        job_type: 'Contract' as const,
+        status: 'Applied' as const,
         applied_date: '2026-06-01',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(false);
     });
 
@@ -76,11 +67,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: 'Engineer',
-        job_type: 'Full-time',
-        status: 'Hired',
+        job_type: 'Full-time' as const,
+        status: 'Hired' as const,
         applied_date: '2026-06-01',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(false);
     });
 
@@ -88,11 +79,11 @@ describe('Validation Schemas', () => {
       const payload = {
         company_name: 'Google',
         job_title: 'Engineer',
-        job_type: 'Full-time',
-        status: 'Applied',
+        job_type: 'Full-time' as const,
+        status: 'Applied' as const,
         applied_date: 'not-a-date',
       };
-      const result = createSchema.safeParse(payload);
+      const result = createApplicationSchema.safeParse(payload);
       expect(result.success).toBe(false);
     });
   });

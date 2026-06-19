@@ -28,33 +28,5 @@ export interface Application {
   [key: string]: unknown;
 }
 
-export interface CreateApplicationDTO {
-  company_name: string;
-  job_title: string;
-  job_type: JobType;
-  status: Status;
-  applied_date: string;
-  notes?: string;
-}
-
-export interface UpdateApplicationDTO {
-  company_name?: string;
-  job_title?: string;
-  job_type?: JobType;
-  status?: Status;
-  applied_date?: string;
-  notes?: string;
-}
-
-export interface PaginationParams {
-  page: number;
-  limit: number;
-}
-
-export interface PaginatedResult<T> {
-  data: T[];
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
+export type CreateApplicationDTO = import('../lib/schemas').CreateApplicationDTO;
+export type UpdateApplicationDTO = import('../lib/schemas').UpdateApplicationDTO;

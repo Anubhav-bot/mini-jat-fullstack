@@ -1,14 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import { query, querySingle } from '../config/database';
 import { AppError } from '../middlewares/errorHandler';
-import type { Application, CreateApplicationDTO, UpdateApplicationDTO } from '../types';
+import type { Application } from '../types';
+import type { CreateApplicationDTO, UpdateApplicationDTO, ListQueryDTO } from '../lib/schemas';
 
 export async function listApplications(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const status = req.query.status as string | undefined;
-    const search = req.query.search as string | undefined;
-    const pageStr = req.query.page as string | undefined;
-    const limitStr = req.query.limit as string | undefined;
+    const { status, search, page: pageStr, limit: limitStr } = req.query as unknown as ListQueryDTO;
 
     const page = Math.max(1, parseInt(pageStr || '1', 10));
     const limit = Math.min(100, Math.max(1, parseInt(limitStr || '20', 10)));
@@ -18,12 +16,12 @@ export async function listApplications(req: Request, res: Response, next: NextFu
     const params: unknown[] = [];
     let paramIndex = 1;
 
-    if (status && typeof status === 'string') {
+    if (status) {
       conditions.push(`status = $${paramIndex++}`);
       params.push(status);
     }
 
-    if (search && typeof search === 'string') {
+    if (search) {
       conditions.push(`(company_name ILIKE $${paramIndex} OR job_title ILIKE $${paramIndex})`);
       params.push(`%${search}%`);
       paramIndex++;
@@ -56,10 +54,7 @@ export async function listApplications(req: Request, res: Response, next: NextFu
 
 export async function getApplication(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const id = parseInt(req.params.id as string, 10);
-    if (isNaN(id)) {
-      throw new AppError(400, 'Invalid application ID');
-    }
+    const id = Number(req.params.id);
 
     const application = await querySingle<Application>(
       'SELECT * FROM applications WHERE id = $1',
@@ -94,10 +89,7 @@ export async function createApplication(req: Request, res: Response, next: NextF
 
 export async function updateApplication(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const id = parseInt(req.params.id as string, 10);
-    if (isNaN(id)) {
-      throw new AppError(400, 'Invalid application ID');
-    }
+    const id = Number(req.params.id);
 
     const existing = await querySingle<Application>('SELECT * FROM applications WHERE id = $1', [id]);
     if (!existing) {
@@ -156,10 +148,7 @@ export async function updateApplication(req: Request, res: Response, next: NextF
 
 export async function deleteApplication(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
-    const id = parseInt(req.params.id as string, 10);
-    if (isNaN(id)) {
-      throw new AppError(400, 'Invalid application ID');
-    }
+    const id = Number(req.params.id);
 
     const existing = await querySingle<Application>('SELECT * FROM applications WHERE id = $1', [id]);
     if (!existing) {
