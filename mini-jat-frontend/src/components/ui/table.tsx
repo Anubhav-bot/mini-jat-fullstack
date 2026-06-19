@@ -8,7 +8,7 @@ const Table = React.forwardRef<
   <div data-slot="table-container" className="w-full overflow-x-auto">
     <table
       ref={ref}
-      className={cn('w-full caption-bottom text-sm table-fixed', className)}
+      className={cn('w-full caption-bottom text-sm', className)}
       {...props}
     />
   </div>

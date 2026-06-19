@@ -15,6 +15,7 @@ import {
   TableHead,
   TableCell,
 } from '@/components/ui/table'
+import { cn } from '@/lib/utils'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import {
@@ -55,7 +56,13 @@ function TableContent({
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
-                <TableHead key={header.id}>
+                <TableHead
+                  key={header.id}
+                  className={cn(
+                    header.column.id === 'job_type' && 'hidden lg:table-cell',
+                    header.column.id === 'applied_date' && 'hidden md:table-cell',
+                  )}
+                >
                   {header.isPlaceholder
                     ? null
                     : flexRender(
@@ -71,7 +78,13 @@ function TableContent({
           {table.getRowModel().rows.map((row) => (
             <TableRow key={row.id}>
               {row.getVisibleCells().map((cell) => (
-                <TableCell key={cell.id}>
+                <TableCell
+                  key={cell.id}
+                  className={cn(
+                    cell.column.id === 'job_type' && 'hidden lg:table-cell',
+                    cell.column.id === 'applied_date' && 'hidden md:table-cell',
+                  )}
+                >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
                 </TableCell>
               ))}
