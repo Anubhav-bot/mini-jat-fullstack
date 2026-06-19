@@ -124,5 +124,13 @@ mini-jat-fullstack/
 └── .gitignore
 ```
 
+## Deployment
+
+| Layer    | Provider | URL                                                   |
+| -------- | -------- | ----------------------------------------------------- |
+| Frontend | Vercel   | https://mini-jat-fullstack.vercel.app                 |
+| Backend  | Render   | https://mini-jat-fullstack.onrender.com               |
+| Database | Render   | PostgreSQL 16                                         |
+
 ## AI Usage
 I used AI for scaffolding both frontend and backend, for tests, generating most of the README docs and for learning many things like docker-compose along the way.
