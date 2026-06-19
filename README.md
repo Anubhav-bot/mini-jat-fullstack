@@ -2,7 +2,12 @@
 
 A full-stack web app for tracking job applications through the hiring pipeline — from Applied to Offer (or Rejection).
 
-![screenshot](https://via.placeholder.com/800x450?text=Screenshot+coming+soon)
+<details>
+  <summary>Screenshots</summary>
+<img width="1605" height="933" alt="image" src="https://github.com/user-attachments/assets/70b362b1-42a8-465d-aa2c-8c0027a15642" />
+<img width="647" height="717" alt="image" src="https://github.com/user-attachments/assets/9134fb95-beb4-4361-8175-ae5eedcf6317" />
+</details>
+
 
 ## Features
 
