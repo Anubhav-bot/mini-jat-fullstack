@@ -9,7 +9,7 @@
     "dev": "tsx watch src/index.ts",
     "migrate": "tsx src/migrations/run.ts",
     "test": "jest --forceExit --detectOpenHandles",
-    "lint": "eslint src/"
+    "lint": "tsc --noEmit"
   },
   "dependencies": {
     "cors": "^2.8.5",

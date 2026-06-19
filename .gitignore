@@ -1,2 +1,4 @@
-mini-jat-frontend/.env
-mini-jat-frontend/src/assets/
+node_modules/
+dist/
+.env
+*.log

@@ -12,7 +12,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog'
 import { Briefcase, Plus, ChevronLeft, ChevronRight } from 'lucide-react'
 import { ThemeToggle } from '@/components/theme-toggle'
-import { UserMenu } from '@/components/user-menu'
 import type { Application, CreateApplicationInput, UpdateApplicationInput } from '@/types/application'
 
 const PAGE_SIZE = 10
@@ -96,7 +95,6 @@ export function ApplicationsPage() {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <UserMenu />
           </div>
         </div>
       </header>
