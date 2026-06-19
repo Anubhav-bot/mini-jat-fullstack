@@ -23,6 +23,18 @@ export default defineConfig({
       },
     },
   },
+  preview: {
+    proxy: {
+      '/applications': {
+        target: 'http://backend:3001',
+        changeOrigin: true,
+      },
+      '/health': {
+        target: 'http://backend:3001',
+        changeOrigin: true,
+      },
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
