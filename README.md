@@ -123,3 +123,6 @@ mini-jat-fullstack/
 │   └── tests/            # Vitest tests
 └── .gitignore
 ```
+
+## AI Usage
+I used AI for scaffolding both frontend and backend, for tests, generating most of the README docs and for learning many things like docker-compose along the way.
